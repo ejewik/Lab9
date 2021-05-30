@@ -67,6 +67,72 @@
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
     // TODO - Make buttons functional
+
+    let consoleLogBtn = errorBtns[0];
+    let consoleErrorBtn = errorBtns[1];
+    let consoleDirBtn = errorBtns[2];
+    let consoleDirXMLBtn = errorBtns[3];
+    let consoleGroupStartBtn = errorBtns[4];
+    let consoleGroupEndBtn = errorBtns[5];
+    let consoleTableBtn = errorBtns[6];
+    let startTimerBtn = errorBtns[7];
+    let endTimerBtn = errorBtns[8];
+    let consoleTraceBtn = errorBtns[9];
+    let triggerGlobalErrorBtn = errorBtns[10];
+
+    consoleLogBtn.addEventListener('click', () => {
+      console.log("Console Log Demo");
+    });
+
+    consoleErrorBtn.addEventListener('click', () => {
+      console.error("Console Error Demo");
+    });
+
+    consoleDirBtn.addEventListener('click', () => {
+      console.dir(document.location);
+    });
+
+    consoleDirXMLBtn.addEventListener('click', () => {
+      console.dirxml(document.location);
+    });
+
+    consoleGroupStartBtn.addEventListener('click', () => {
+      console.group("Log group");
+    });
+
+    consoleGroupEndBtn.addEventListener('click', () => {
+      console.groupEnd("Log group");
+      console.log("Group ended");
+    });
+
+    consoleTableBtn.addEventListener('click', () => {
+      console.table(["apples", "oranges", "bananas"]);
+    });
+
+    startTimerBtn.addEventListener('click', () => {
+      console.time();
+    });
+
+    endTimerBtn.addEventListener('click', () => {
+      console.timeEnd();
+    });
+
+    // console.trace example
+    function foo() {
+      function bar() {
+        console.trace();
+      }
+      bar();
+    }
+
+    consoleTraceBtn.addEventListener('click', () => {
+      foo();
+    });
+
+    triggerGlobalErrorBtn.addEventListener('click', () => {
+
+    });
+
   </script>
 </body>
 </html>
