@@ -35,7 +35,7 @@
       <option>*</option>
       <option>/</option>
     </select>
-    <input type="number" name="second-num" id="second-num" />
+    <input type="number" name="second-num" id="second-num"/>
     <button id="calculate">Calculate</button>
     <br />
     <output></output>
@@ -55,14 +55,31 @@
     <button>Trigger a Global Error</button>
   </section>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>
+    window.TrackJS && TrackJS.install({ 
+    token: "b7713730bd9a4bcd8f6a04d09c56b7fe"
+    // for more configuration options, see https://docs.trackjs.com
+  });                 
+  </script>
+                        
+
+  <script>            
     let calculateBtn = document.querySelector('#calculate');
     calculateBtn.addEventListener('click', () => {
       let output = document.querySelector('output');
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+
+      // try, catch, finally & throw
+      try {
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      } catch (err) {
+          throw err;
+      } finally {
+        console.log('finally');
+      }  
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
@@ -130,8 +147,25 @@
     });
 
     triggerGlobalErrorBtn.addEventListener('click', () => {
-
+      TrackJS.track('Testing TrackJS!'); 
+      testCustomError();  
     });
+
+    // custom error 
+    class CustomError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = CustomError;
+      }
+    }
+
+    function testCustomError() {
+      throw new CustomError('hello i am a custom error!');
+    }
+
+    window.onerror = function(message, url, lineNumber) {
+      console.log ('Error: ' + message + ' at ' + url + ' on line ' + lineNumber);
+    };
 
   </script>
 </body>
